@@ -5,26 +5,41 @@ const nextBtn = document.querySelector(".next-btn"); // select next button
 let galleryContainer = document.querySelector(".gallery-container"); //select gallery container
 galleryContainer.style.gridTemplateColumns = `repeat(${slides.length}, 1fr)`; // set grid template columns
 let currentSlide = 0; // set current slide to 0
+
+startrundomImage(); // start rundom image function triggered
 updateSliderCounter(); // update slider counter function triggered
+
+
+// function to start rundom image
+function startrundomImage(){
+  interval = setInterval(() => {
+    const randomIndex = Math.floor(Math.random() * slides.length); 
+    goToSlide(randomIndex);
+  }, 3000);
+  }
+
+
 // function to go to slide
 function goToSlide(n) {
-
   slides[currentSlide].classList.remove('active'); // remove active class from current slide
   currentSlide = (n + slides.length) % slides.length; // set current slide to n
   slides[currentSlide].classList.add('active'); // add active class to current slide
   updateSliderCounter(); // update slider counter function triggered
   updateThumbnailActiveStatus(currentSlide); // update thumbnail active status function triggered
-
 }
 
 // add event listener to previous button
 prevBtn.addEventListener("click", () => {
   goToSlide(currentSlide - 1); 
+  clearInterval(interval); // clear interval
+  startrundomImage(); // start rundom image function triggered  after clear interval
 });
 
 // add event listener to next button
 nextBtn.addEventListener("click", () => {
   goToSlide(currentSlide + 1);
+  clearInterval(interval); // clear interval
+  startrundomImage(); // start rundom image function triggered  after clear interval
 });
 
 // function to update slider counter
@@ -50,3 +65,4 @@ function  updateThumbnailActiveStatus(index){
     img.classList.toggle("active" , i === index) 
   });
   }
+
