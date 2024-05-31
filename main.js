@@ -15,7 +15,7 @@ function startrundomImage(){
   interval = setInterval(() => {
     const randomIndex = Math.floor(Math.random() * slides.length); 
     goToSlide(randomIndex);
-  }, 3000);
+  }, 4000);
   }
 
 
